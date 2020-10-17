@@ -1,0 +1,30 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+public class Ascpic {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String path = "图片的url";
+        //设置输出的字符画的字符
+        String base = "0101";
+        BufferedImage image = ImageIO.read(new File(path));
+        //x+和y+，设置读取像素点，每次跳过几个读取
+        for (int y = 0; y < image.getHeight(); y +=2) {
+            for (int x = 0; x < image.getWidth(); x ++) {
+                int color = image.getRGB(x, y);
+                int r = (color >> 16) & 0xff;
+                int g = (color >> 8) & 0xff;
+                int b = color & 0xff;
+                float gray = 0.299f * r + 0.578f * g + 0.114f * b;
+                int index = Math.round(gray * (base.length()) / 255);
+                if (index >= base.length()) {
+                    System.out.print(" ");
+                } else {
+                    System.out.print(base.charAt(index));
+                }
+            }
+            System.out.println();
+        }
+    }
+}
