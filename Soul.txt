@@ -1,7 +1,0 @@
-# This scirpt should save lifes.
-
-import soul
-
-for days in len(life):
-
-print “happybirthday”
